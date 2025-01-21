@@ -13,7 +13,7 @@ public class Test1 {
 		
 		System.out.println("이클립스 실행 중");
 		System.out.println("어두운 바다의 등불이 되어");
-		System.out.println("파이널판타지14");
+		System.out.println("효월의 종언");
 		System.out.println("황금의 유산");
 		
 		/* Java API DOC: 
