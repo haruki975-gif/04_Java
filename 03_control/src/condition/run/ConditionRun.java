@@ -22,6 +22,8 @@ public class ConditionRun {
 		
 		// service.method3();
 		
-		service.displayMenu();
+		// service.displayMenu();
+		
+		service.method4();
 	}
 }
