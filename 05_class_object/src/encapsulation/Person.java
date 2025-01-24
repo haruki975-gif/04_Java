@@ -36,21 +36,4 @@ public class Person {
 		return "이름 : " + personName + " / 키 : " + height; // 필드명 변경
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -226,21 +226,4 @@ public class ArrayService1 {
 		System.out.println("최대값 : " + scoreArr[maxIndex]);
 		System.out.println("최소값 : " + scoreArr[minIndex]);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

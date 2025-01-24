@@ -150,17 +150,4 @@ public class LoopService2 {
 		
 		System.out.println("합계 : " + sum);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
