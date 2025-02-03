@@ -105,11 +105,4 @@ public class StudentDTO {
 					html, css, js, java);
 				
 	}
-	
-	
-	
-	
-	
-	
-	
 }
