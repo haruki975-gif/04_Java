@@ -29,6 +29,4 @@ public class Child2 extends Parent {
 	public void setCar(String car) {
 		this.car = car;
 	}
-	
-	
 }

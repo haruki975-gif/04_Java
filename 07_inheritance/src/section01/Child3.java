@@ -19,7 +19,7 @@ public class Child3 extends Parent {
 		firstName = "무현";
 		
 		setAddress("충북 청주시");
-//		address = "직접 접근 안됩니다";
+		// address = "직접 접근 안됩니다";
 		
 		setMoney(9000);
 		bitCoin = 0.1;
@@ -32,8 +32,4 @@ public class Child3 extends Parent {
 	public void setBitCoin(double bitCoin) {
 		this.bitCoin = bitCoin;
 	}
-	
-	
-	
-	
 }

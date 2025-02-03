@@ -41,8 +41,4 @@ public class Child1 extends Parent{
 	public void setLaptop(String laptop) {
 		this.laptop = laptop;
 	}
-	
-	
-	
-	
 }
