@@ -1,7 +1,6 @@
 package section02;
 
 public class Section02Run {
-
 	public static void main(String[] args) {
 		
 		// 학생 객체 생성 1 -> 기본 생성자

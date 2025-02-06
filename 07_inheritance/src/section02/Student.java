@@ -95,15 +95,4 @@ public class Student extends Person{
 	public String introduce(String alias) {
 		return String.format("[Student가 재정의] 내 이름은 %s, %s이죠.", super.getName(), alias);
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

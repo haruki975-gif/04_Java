@@ -9,7 +9,8 @@ public class PolymorphismRun {
 		// service.test1();
 		// service.test2(); // Child, Parent, Object 순으로 출력
 		// service.test3();
-		service.test4();
+		// service.test4();
+		service.test5();
 		
 		// 실행   : ctrl + F11
 		// 디버그 : F11

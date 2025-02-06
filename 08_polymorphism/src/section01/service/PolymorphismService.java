@@ -231,7 +231,6 @@ public class PolymorphismService {
 			}
 		}
 		
-		
 		/* debug 모드
 		 * - 이클립스 등 IDE에서 제공하는 기능
 		 * - 코드 수행 중 지정된 지점(breakpoint)에서
@@ -239,10 +238,40 @@ public class PolymorphismService {
 		 *   해당 시점에 존재하는 변수/필드 값을 확인하는 모드
 		 * 
 		 */
-		
 	}
 	
 	
+	// 다운캐스팅 시 주의사항
+	// - 강제 형변환이 적용되는 참조 변수가
+	//   형변환하려는 타입의 객체를 참조하고 있는지 확인 필요
+	//   -> instanceof 사용
+	public void test5() {
+		
+		// 업캐스팅
+		Parent p = new Child("김", 120, "에쿠스");
+		test6(p);
+		
+	}
+	
+	// 전달 받은 객체를 String 타입으로 다운캐스팅(강제 형변환)
+	public void test6(Object obj) {
+		
+		/* ClassCastException 발생 
+		 * - 참조 변수의 강제 형변환(다운캐스팅) 시
+		 *   참조하는 객체가
+		 *   변환하려는 타입이 아니거나 상속 관계도 아니면
+		 *   형변환 불가(ClassCastException) 발생
+		 * */
+		
+		// 참조하는 객체가 String 타입일 경우에만 형변환(다운캐스팅)
+		if(obj instanceof String) {
+			String p = (String)obj;
+			System.out.println(p);						
+		}else {
+			// String이 아니면 객체를 만들 때 사용한 클래스명 출력
+			System.out.println(obj.getClass().getName());
+		}
+	}
 	
 	
 	

@@ -33,7 +33,4 @@ public class Child extends Parent {
 		// Parent [lastName=제갈, money=10000] / Child [car=car변수]
 		return super.toString() + " / Child [car=]" + car + "]";
 	}
-	
-	
-	
 }

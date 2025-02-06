@@ -22,7 +22,7 @@ package section02;
 
 
 //public final class Person {
-	public class Person {
+public class Person {
 
 	private String name;
 	private int age;
@@ -106,7 +106,4 @@ package section02;
 	public  String introduce(String alias) { // alias : 별명
 		return String.format("[Person] 이름은 %s 이고 별명은 %s 입니다.", name, alias);
 	}
-	
-	
-	
 }

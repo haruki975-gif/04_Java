@@ -61,16 +61,4 @@ public class Parent extends Object {
 	public String toString() {
 		return "Parent [lastName=" + lastName + ", money=" + money + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

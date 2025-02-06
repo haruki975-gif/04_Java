@@ -69,12 +69,5 @@ public class TestRun {
 		Child c2 = (Child)p2;
 		
 		System.out.println("c2.getCar() : " + c2.getCar());
-		
-		
-		
-		
-		
-		
-		
 	}
 }
