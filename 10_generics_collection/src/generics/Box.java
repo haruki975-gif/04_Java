@@ -33,5 +33,4 @@ public class Box<T> {
 	public T getValue() {
 		return value;
 	}
-	
 }

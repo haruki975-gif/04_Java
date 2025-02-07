@@ -154,15 +154,4 @@ public class StringService {
 		sb.trimToSize();
 		System.out.println("sb 크기 : " + sb.capacity());
 	}
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

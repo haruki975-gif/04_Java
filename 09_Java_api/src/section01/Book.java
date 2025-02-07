@@ -120,18 +120,5 @@ public class Book {
 //		result *= price * PRIME;
 //		
 //		return result;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }
