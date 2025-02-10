@@ -1,6 +1,7 @@
 package list.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import list.dto.BookDTO;
@@ -189,8 +190,14 @@ public class BookService {
 		return list;
 	}
 	
-	
-	
+
+	/**
+	 * 제목 오름차순 정렬
+	 */
+	public void bookListSorting() {
+		Collections.sort(bookList);
+		// 원본 리스트가 정렬된 형태로 변경됨
+	}
 	
 	
 	
