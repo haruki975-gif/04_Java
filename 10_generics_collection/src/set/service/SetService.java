@@ -1,7 +1,15 @@
 package set.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 
 import set.dto.Person;
 
@@ -84,7 +92,6 @@ public class SetService {
 		set.clear();
 		System.out.println("clear() 후 isEmpty() : " + set.isEmpty()); // T
 		System.out.println("set : " + set); // []
-		
 	}
 	
 	
@@ -104,7 +111,11 @@ public class SetService {
 		Person p3 = new Person("서지혁", 26, '남');
 		Person p4 = new Person("서지혁", 26, '남'); // 중복 필드 객체 생성
 		
-		Set<Person> personSet = new HashSet<Person>();
+		// Set 객체 생성
+		// Set<Person> personSet = new HashSet<Person>();
+		
+		// LinkedHashSet : 순서가 유지되는 Set
+		Set<Person> personSet = new LinkedHashSet<Person>();
 		
 		personSet.add(p1);
 		personSet.add(p2);
@@ -123,29 +134,130 @@ public class SetService {
 	}
 	
 	
+	/* [Iterator<T> Set<T>.iterator()]
+	 * - 해당 Set에 저장된 요소를 순차 접근할 수 있는 반복자 Iterator를 반환하는 메서드
+	 * 
+	 * [Iterator<E> 인터페이스]
+	 * - 반복자 기능 제공 인터페이스
+	 * - <E> 반복자가 반환하는 요소의 유형
+	 * 
+	 * 1) boolean hasNext() : 다음 반복 접근할 요소가 있으면 true, 없으면 false
+	 * 2) E next() : 있으면 다음 요소를 반환
+	 * 		-> 무조건 hasNext() 이후에 사용(단독 X)
+	 */
+	public void test3() {
+		Set<String> snacks = new HashSet<String>();
+		snacks.add("꼬북칩");
+		snacks.add("포카칩");
+		snacks.add("칙촉");
+		snacks.add("홈런볼");
+		snacks.add("쿠쿠다스");
+		snacks.add("프링글스");
+		snacks.add("다이제");
+		
+		// snacks(Set)에 저장된 값을 순차 접근(반복 접근)하는 객체 반환받기
+		Iterator<String> it = snacks.iterator();
+		
+		// 반복 접근할 객체(꺼낼 객체)가 존재하면 반복, 없으면 종료
+		while(it.hasNext()) { 
+			String snack = it.next(); // 다음 값을 얻어옴
+			System.out.println(snack);
+		}
+		
+		System.out.println("-------------------------------");
+		/* 향상된 for문
+		 * - 배열, 컬렉션(List, Set)의 요소를 하나씩 순차 접근
+		 *   -> Iterable 인터페이스 구현체에 대한 반복 접근 제공
+		 **/
+		for(String snack : snacks) {
+			System.out.println(snack);
+		}
+		
+		System.out.println("--------------------------------");
+		
+		/* Set -> List로 변환 */
+		List<String> list = new ArrayList<String>(snacks);
+		// -> snacks Set에 저장된 데이터를 이용해 ArrayList 생성
+		
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+	}
 	
 	
+	/* TreeSet : 이진 트리 구조를 이용해 객체를 저장하는 Set
+	 * -> 중복 제거 + 오름차순 정렬
+	 * 
+	 * @@ 선행 조건 @@
+	 * 저장되는 객체가 Comparable 인터페이스를 상속 받아서 구현
+	 * -> add() 될때마다 자동으로 비교 -> 정렬 진행
+	 */
+	public void test4() {
+		// 순서를 저장하는 Set
+		// Set<String> set = new HashSet<String>();
+		
+		// 오름차순 정렬
+		Set<String> set = new TreeSet<String>();
+		
+		set.add("신해량");
+		set.add("박무현");
+		set.add("백애영");
+		set.add("서지혁");
+		set.add("김재희");
+		set.add("사토");
+		System.out.println(set);
+		// HashSet : 순서 유지 X
+	}
 	
 	
+	// 로또 번호 6개(중복X, 오름차순 정렬)가 담긴 문자열 반환
+	public String getLottoNumber() {
+		
+		Random random = new Random();
+		
+		Set<Integer> lotto = new TreeSet<Integer>(); // 정렬, 중복제거
+		
+		while(lotto.size() < 6) {
+			 // 저장된 값이 6개 미만이면 반복, 6개를 넘어가면 반복 종료
+			lotto.add(random.nextInt(45) + 1); // 1~45사이 난수
+		}
+		// System.out.println(lotto);
+		
+		return lotto.toString();
+		
+		// 기존 방법
+//		int[] lotto = new int[6];
+//		
+//		for(int i=0; i<lotto.length; i++) {
+//			int num = random.nextInt(45) + 1; // 1~45사이 난수
+//			lotto[i] = num;
+//			
+//			for(int x=0; x<i; x++) {
+//				if(lotto[x] == num) {
+//					i--;
+//					break;
+//				}
+//			}
+//		}
+//		
+//		Arrays.sort(lotto); // 정렬
+//		System.out.println(Arrays.toString(lotto));
+	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/** 로또 번호 생성기
+	 *  - 입력된 수 만큼의 로또 번호 생성
+	 *  - 마지막에 가격 총합 출력 (1회당 1,000원)
+	 */
+	public void lottoNumberGenerator() {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("생성할 로또 번호 개수 입력 입력 : ");
+		int count = sc.nextInt();
+		
+		for(int i=0; i<count; i++) {
+			System.out.printf("[%d]회 : %s\n", i+1, getLottoNumber());
+		}
+		System.out.println("금액 : " + (count * 1000) + "원");
+	}
 }
