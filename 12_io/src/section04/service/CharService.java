@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class CharService {
 
@@ -25,23 +26,22 @@ public class CharService {
 		
 		try {
 			String content = """
-						마음을 좀 편히 먹어도 될걸
-						지금 아무도 없잖아
-						너의 나와 하늘과 바다 그뿐인걸
-						
-						수많은 사람들 속
-						어쩌면 지쳐 왔던 걸지 몰라
-						수고했다 참
-						
-						고요한 일상도
-						나쁘지는 않아
-						마음껏 그리워할 수 있으니
-						
-						세상의 기쁨을 죄다 누린 것 같은 기분이었지
-						한켠에 피어나던 불안함과 싸워 이기면서도
-						어디까지 멀리 날아오르고 싶었던 걸까
-						그땐 그게 정답이었어
-					""";
+마음을 좀 편히 먹어도 될걸
+지금 아무도 없잖아
+너의 나와 하늘과 바다 그뿐인걸
+
+수많은 사람들 속
+어쩌면 지쳐 왔던 걸지 몰라
+수고했다 참
+
+고요한 일상도
+나쁘지는 않아
+마음껏 그리워할 수 있으니
+
+세상의 기쁨을 죄다 누린 것 같은 기분이었지
+한켠에 피어나던 불안함과 싸워 이기면서도
+어디까지 멀리 날아오르고 싶었던 걸까
+그땐 그게 정답이었어			""";
 			
 			// 폴더가 없을 경우 생성
 			String path = "io_test/char";
@@ -168,9 +168,30 @@ public class CharService {
 	}
 	
 	
+	// Scanner 대신 스트림을 이용한 문자열 입력 받기
+	// -> Scanner가 편리하긴 한데 매우 느림!!
 	
-	
-	
+	// 키보드 입력 -> 바이트(2진수) 코드 입력 -> 문자 변환
+	public void keyboardInput() {
+		
+		// System.in : 기본 장치(키보드)와 연결된 InputStream 반환
+		// InputStreamReader : 바이트 스트림을 문자 스트림으로 변환 
+		try(BufferedReader br = new BufferedReader( new InputStreamReader(System.in) )) {
+			//  문자 기반                                   바이트 기반
+			
+			System.out.println("문자열 입력1 : ");
+			String input1 = br.readLine(); // 입력된 한 줄 읽어오기
+			
+			System.out.println("문자열 입력2 : ");
+			String input2 = br.readLine(); // 입력된 한 줄 읽어오기
+			
+			System.out.println("input1 : " + input1);
+			System.out.println("input2 : " + input2);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	
