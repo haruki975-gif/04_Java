@@ -14,7 +14,5 @@ public class ByteRun {
 //		service.fileByteInput2(); // 파일 입력(한글 안깨짐)
 //		service.bufferedFileByteInput(); // 버퍼 파일 입력
 		service.fileCopy();
-		
-		
 	}
 }

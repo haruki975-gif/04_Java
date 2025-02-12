@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import section03.dto.Member;
 
@@ -81,4 +83,105 @@ public class ObjectService {
 			}
 		}
 	}
+	
+	
+	//----------------------------------------------------------------
+	
+	public void outputMemberList() {
+		
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
+		
+		try {
+			List<Member> memberList = new ArrayList<Member>();
+			
+			memberList.add(new Member("member01", "pass01", "짱구"));
+			memberList.add(new Member("member02", "pass02", "맹구"));
+			memberList.add(new Member("member03", "pass03", "훈이"));
+			memberList.add(new Member("member04", "pass04", "철수"));
+			memberList.add(new Member("member05", "pass05", "수지"));
+			
+			// 스트림 객체 생성
+			fos = new FileOutputStream("io_test/byte/MemberList.bin");
+			oos = new ObjectOutputStream(fos);
+			
+			// 보조 스트림을 이용해서 객체 출력
+			oos.writeObject(memberList);
+			System.out.println("회원 목록 출력 완료");
+			
+		}catch(Exception e) {
+			e.printStackTrace(); // 예외 발생 메서드 추적
+			
+		} finally {
+			try {
+				oos.close(); // 보조스트림 close 시 기반 스트림도 같이 close
+				
+			} catch(Exception e) {
+				e.printStackTrace(); // 예외 발생 메서드 추적
+			}
+		}
+		
+	}
+	
+	
+	/**
+	 * MemberList.bin 내용 읽어오기
+	 */
+	public void inputMemberList() {
+		
+		FileInputStream fis = null;
+		ObjectInputStream ois = null;
+		
+		try {
+			// 스트림 객체 생성
+			fis = new FileInputStream("io_test/byte/MemberList.bin");
+			ois = new ObjectInputStream(fis);
+			
+			// 직렬화된 상태로 저장된 List<Member> 객체를 읽어와
+			// 역직렬화해서 저장
+			List<Member> memberList = (List<Member>)ois.readObject(); // Object
+			
+			// 확인
+			for(Member member : memberList) {
+				System.out.println(member);
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 보조 스트림 close -> 기반 스트림도 같이 close
+				if(ois != null) ois.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
