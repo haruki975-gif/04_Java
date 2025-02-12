@@ -39,7 +39,4 @@ public class OuterClass2 {
 			System.out.println("innerStaticNum : " + innerStaticNum);
 		}
 	}
-	
-	
-	
 }
