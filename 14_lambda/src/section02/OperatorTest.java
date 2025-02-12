@@ -31,7 +31,4 @@ public class OperatorTest {
 		System.out.println("2^10 == " + squre.applyAsInt(2, 10)); // 1024
 		System.out.println("2^10 == " + squre.applyAsInt(2, 16)); // 65536
 	}
-	
-	
-	
 }
