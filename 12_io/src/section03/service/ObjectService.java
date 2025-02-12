@@ -116,7 +116,7 @@ public class ObjectService {
 			try {
 				oos.close(); // 보조스트림 close 시 기반 스트림도 같이 close
 				
-			} catch(Exception e) {
+			} catch(IOException e) {
 				e.printStackTrace(); // 예외 발생 메서드 추적
 			}
 		}
@@ -152,7 +152,7 @@ public class ObjectService {
 			try {
 				// 보조 스트림 close -> 기반 스트림도 같이 close
 				if(ois != null) ois.close();
-			}catch(Exception e) {
+			}catch(IOException e) {
 				e.printStackTrace();
 			}
 		}
