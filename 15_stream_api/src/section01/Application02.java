@@ -51,8 +51,16 @@ public class Application02 {
 		longStream.forEach(num -> System.out.print(num+" "));
 		
 		DoubleStream doubleStream = DoubleStream.of(3.14, 4.5, 59.6);
-		double Sum = 0;
-		doubleStream.reduce(0, (a,b) -> a + b);
+		
+		// 스트림에 저장된 값의 합계를 반환
+		double sum =	doubleStream.reduce(0, (a,b) -> a + b);
+		System.out.println("\n합계 : " + sum);
+		
+		
+		System.out.println();
+		Stream<String> fruitStream = Stream.of("사과","딸기","바나나");
+		fruitStream.forEach(System.out::println);
+		
 		
 	}
 }

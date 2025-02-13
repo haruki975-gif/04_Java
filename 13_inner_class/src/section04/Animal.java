@@ -15,7 +15,4 @@ public interface Animal {
 	
 	// public abstract 생략 가능
 	void eat();
-	
-	
-	
 }
