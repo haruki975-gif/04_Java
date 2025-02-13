@@ -22,8 +22,3 @@ public class NegativeQuantityException extends Exception{
 	}
 	
 }
-
-
-
-
-

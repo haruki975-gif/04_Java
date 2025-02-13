@@ -13,10 +13,4 @@ package section04.exception;
 public class MyTestException 
 //	extends Exception { // CheckedException으로 만들겠다!
 	extends RuntimeException { // UncheckedException으로 만들겠다!
-
-	
 }
-
-
-
-

@@ -30,14 +30,4 @@ public class Child extends Parent{
 	public void method3(){
 		System.out.println("예외 발생할 코드가 없다");
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
