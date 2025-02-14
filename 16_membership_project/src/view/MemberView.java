@@ -133,8 +133,24 @@ public class MemberView {
 		// view <-> service <-> dao
 		List<Member> memberLsit =	service.getMemberList();
 		
+		// 출력 부분
+		System.out.print("------------------------------------------\n");
+		System.out.println("[이름] [휴대폰 번호]   [누적금액] [등급]");
+		System.out.print("------------------------------------------\n");
 		memberLsit.stream().forEach(member->{
-			System.out.println(member);
+			
+			String gradeText; // 등급 > 글자
+			
+			if(member.getGrade() == 0) {
+				gradeText = "일반";
+			} else if(member.getGrade() == 1){
+				gradeText = "골드";
+			} else {
+				gradeText = "다이아";
+			}
+			
+			System.out.printf("%-7s %-13s %-13d %s\n", //공간 확보하고 정렬 : %숫자(+,-)타입
+										member.getName(), member.getPhone(), member.getAmount(), gradeText);
 		});
 
 	}
@@ -149,8 +165,16 @@ public class MemberView {
 		
 		List<Member> searchName = service.selectName(name);
 		
-		if(searchName == null) System.out.println("### 검색 결과가 없습니다 ###");
-		System.out.println(); // 줄바꿈
+		if(searchName == null) {
+			System.out.println("### 검색 결과가 없습니다 ###");
+			return;
+		}
+		else {
+			for(Member search : searchName) {
+				System.out.println(search); // 이름 1개씩 꺼내기
+			}
+		}
+		
 	}
 
 	// ------------------------------------------------------------
@@ -160,6 +184,55 @@ public class MemberView {
 		
 		System.out.print("회원 이름 입력 : ");
 		String target = sc.nextLine(); // 이름
+		
+		List<Member> foundMembers = service.selectName(target);
+		
+		// 검색 결과가 없을 경우
+    if (foundMembers == null) {
+        System.out.println("### 해당 이름의 회원이 없습니다 ###");
+        return;
+    }
+    
+    Member selectedMember; // 선택된 회원 저장 변수
+    
+    // 검색된 회원 목록 출력
+    if(foundMembers.size() > 1) {
+	    System.out.println("\n*** 대상 회원을 선택 해주세요 ***\n");
+	    for (int i = 0; i < foundMembers.size(); i++) {
+	        System.out.printf("%d) %s (%s)\n", i + 1, foundMembers.get(i).getName(), foundMembers.get(i).getPhone());
+	    }
+	    
+	    // 사용자에게 선택 입력 받기
+	    System.out.print("선택할 회원의 번호를 입력 : ");
+	    int index;
+	    while (true) {
+	      try {
+	      	index = Integer.parseInt(sc.nextLine()) - 1;
+	          if (index >= 0 && index < foundMembers.size()) break;
+	      } catch (NumberFormatException e) {
+	          // 숫자가 아닌 값 입력 방지
+	      }
+	      System.out.println("*** 올바른 번호를 입력하세요 ***");
+	    }
+	    
+	    // 선택된 회원 정보
+	    selectedMember = foundMembers.get(index);
+	    
+    } else {
+    	// 동명이인 없을 때
+    	selectedMember = foundMembers.get(0);
+    }
+    
+    // 누적할 금액
+    System.out.print("누적할 금액 입력 : ");
+    int acc = sc.nextInt();
+    sc.nextLine();
+    
+    String result = service.updateAmount(selectedMember, acc);
+
+    // 결과 출력
+    System.out.println(result);
+    
 	}
 	
 
@@ -170,6 +243,54 @@ public class MemberView {
 		
 		System.out.print("회원 이름 입력 : ");
 		String target = sc.nextLine(); // 이름
+		
+		List<Member> foundMembers = service.selectName(target);
+		
+		// 검색 결과가 없을 경우
+    if (foundMembers == null) {
+        System.out.println("### 해당 이름의 회원이 없습니다 ###");
+        return;
+    }
+    
+    Member selectedMember; // 선택된 회원 저장 변수
+    
+    // 검색된 회원 목록 출력
+    if(foundMembers.size() > 1) {
+	    System.out.println("\n*** 대상 회원을 선택 해주세요 ***\n");
+	    for (int i = 0; i < foundMembers.size(); i++) {
+	        System.out.printf("%d) %s (%s)\n", i + 1, foundMembers.get(i).getName(), foundMembers.get(i).getPhone());
+	    }
+	    
+	    // 사용자에게 선택 입력 받기
+	    System.out.print("선택할 회원의 번호를 입력 : ");
+	    int index;
+	    while (true) {
+	      try {
+	      	index = Integer.parseInt(sc.nextLine()) - 1;
+	          if (index >= 0 && index < foundMembers.size()) break;
+	      } catch (NumberFormatException e) {
+	          // 숫자가 아닌 값 입력 방지
+	      }
+	      System.out.println("*** 올바른 번호를 입력하세요 ***");
+	    }
+	    
+	    // 선택된 회원 정보
+	    selectedMember = foundMembers.get(index);
+	    
+    } else {
+    	// 동명이인 없을 때
+    	selectedMember = foundMembers.get(0);
+    }
+
+    // 수정할 전화번호 입력
+    System.out.print("수정할 전화번호 입력 : ");
+    String newPhone = sc.nextLine();
+
+    // 회원 정보 업데이트 요청
+    String result = service.updateMember(selectedMember, newPhone);
+
+    // 결과 출력
+    System.out.println(result);
 
 	}
 
@@ -182,8 +303,56 @@ public class MemberView {
 		System.out.print("회원 이름 입력 : ");
 		String target = sc.nextLine(); // 이름
 		
-		String searchName = service.deleteMember(new Member());
+		List<Member> foundMembers = service.selectName(target);
 		
-		
+		// 검색 결과가 없을 경우
+    if (foundMembers == null) {
+        System.out.println("### 해당 이름의 회원이 없습니다 ###");
+        return;
+    }
+    
+    Member selectedMember; // 선택된 회원 저장 변수
+    
+    // 검색된 회원 목록 출력(동명이인 있을 떄)
+    if(foundMembers.size() > 1) {
+	    System.out.println("\n*** 대상 회원을 선택 해주세요 ***\n");
+	    for (int i = 0; i < foundMembers.size(); i++) {
+	        System.out.printf("%d) %s (%s)\n", i + 1, foundMembers.get(i).getName(), foundMembers.get(i).getPhone());
+	    }
+	    
+	    // 사용자에게 선택 입력 받기
+	    System.out.print("선택할 회원의 번호를 입력 : ");
+	    int index;
+	    while (true) {
+	      try {
+	      	index = Integer.parseInt(sc.nextLine()) - 1;
+	          if (index >= 0 && index < foundMembers.size()) break;
+	      } catch (NumberFormatException e) {
+	          // 숫자가 아닌 값 입력 방지
+	      }
+	      System.out.println("*** 올바른 번호를 입력하세요 ***");
+	    }
+	    
+	    // 선택된 회원 정보
+	    selectedMember = foundMembers.get(index);
+	    
+    } else {
+    	// 동명이인 없을 때
+    	selectedMember = foundMembers.get(0);
+    }
+    
+    
+    // 탈퇴 처리 여부
+    System.out.print("정말 탈퇴 처리 하시겠습니까? (y/n) : ");
+    String input = sc.next(); // 소문자로 변환하여 비교
+    
+    if(input.equals("y")) {
+    	// 회원 정보 삭제 요청
+      String result = service.deleteMember(selectedMember);
+      System.out.println(result);
+    } else {
+    	System.out.println("### 탈퇴 취소 ###");
+    }
 	}
+	
 }

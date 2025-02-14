@@ -75,16 +75,18 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public List<Member> selectName(String searchName) {
     	
-    	List<Member> searchList = new ArrayList<Member>();
+    	List<Member> searchList = dao.getMemberList();
+    	List<Member> search = new ArrayList<Member>();
+    	
     	
     	for(Member member : searchList) {
     		if(member.getName().equals(searchName)) {
-    			searchList.add(member);
+    			search.add(member);
     		}
     	}
 
     	// 리스트가 비어 있으면 null 반환, 아니면 리스트 반환
-      return searchList.isEmpty() ? null : searchList;
+      return search.isEmpty() ? null : search;
     }
 
 
@@ -92,7 +94,40 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public String updateAmount(Member target, int acc) throws IOException {
 
-      return null; // 결과 문자열 반환
+    	// 금액
+    	int oldAcc = target.getAmount(); // 업데이트 전
+    	int newAcc = oldAcc + acc; // 업데이트 후(누적)
+    	target.setAmount(newAcc); // 금액 업데이트
+    	
+    	// 등급
+    	int grade; // 숫자
+    	int oldGrade = target.getGrade(); // 업데이트 전
+    	int newGrade; // 업데이트 후
+    	
+    	// 금액 범위에 따른 등급 변경
+    	if(target.getAmount() >= 0 && target.getAmount() < 100_000) {
+    		newGrade = Member.COMMON;
+    		
+    	} else if(target.getAmount() < 1_000_000) {
+    		newGrade = Member.GOLD;
+    		
+    	} else {
+    		newGrade = Member.DIAMOND;
+    	}
+    	
+    	target.setGrade(newGrade); // 등급(숫자) 덮어쓰기
+    	
+    	dao.saveFile(); // 파일 업데이트
+    	
+    	// 이전 등급과 현재 등급이 다를 경우
+    	if(oldGrade != newGrade) {
+    		String gradeText = (newGrade == Member.COMMON) ? "일반" : (newGrade == Member.GOLD) ? "골드" : "다이아";
+    		
+    		return String.format("%d -> %d\n"
+    				+ "* %s * 등급으로 변경 되셨습니다", oldAcc, newAcc, gradeText);
+    	}
+    	
+    	return String.format("%d -> %d", oldAcc, newAcc);
       
       //ex)
       // 2000 -> 100000
@@ -103,8 +138,13 @@ public class MemberServiceImpl implements MemberService{
     //회원 정보(전화번호) 수정
     @Override
     public String updateMember(Member target, String phone) throws IOException {
-
-      return null; // 결과 문자열 반환
+    	
+    	String oldPhone = target.getPhone();
+    	target.setPhone(phone);
+    	dao.saveFile();
+    	
+    	// 결과 메시지 반환
+      return String.format("%s님의 전화번호가 변경 되었습니다\n%s -> %s", target.getName(), oldPhone, phone);
       
       // ex)
       // 홍길동님의 전화번호가 변경 되었습니다
@@ -116,13 +156,14 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public String deleteMember(Member target) throws IOException {
     	
-    	List<Member> searchMember = new ArrayList<Member>();
+    	List<Member> searchList = dao.getMemberList();
+    	searchList.remove(target);
     	
-    	for(Member member : searchMember) {
-    		
-    	}
+    	dao.saveFile();
     	
-      return null; // 결과 문자열 반환
+    	return String.format("%s 회원이 탈퇴 처리 되었습니다", target.getName());
+    	
+      // return null; // 결과 문자열 반환
       // ex)
       // "홍길동 회원이 탈퇴 처리 되었습니다"
     }
