@@ -47,7 +47,18 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean addMember(String name, String phone) throws IOException {
     	
-      return false;
+    	List<Member> memberList = dao.getMemberList();
+    	
+    	for(Member member : memberList) {
+    		if (member.getPhone().equals(phone)) {
+          System.out.println("### 중복되는 휴대폰 번호가 존재합니다 ###");
+          return false; // 번호 중복
+    		}
+    	}
+    	// 새로운 회원 추가
+      dao.addMember(new Member(name, phone, 0, 0));
+      
+      return true;
     }
 
 
@@ -63,8 +74,17 @@ public class MemberServiceImpl implements MemberService{
     // 이름 검색
     @Override
     public List<Member> selectName(String searchName) {
+    	
+    	List<Member> searchList = new ArrayList<Member>();
+    	
+    	for(Member member : searchList) {
+    		if(member.getName().equals(searchName)) {
+    			searchList.add(member);
+    		}
+    	}
 
-        return null;
+    	// 리스트가 비어 있으면 null 반환, 아니면 리스트 반환
+      return searchList.isEmpty() ? null : searchList;
     }
 
 
@@ -72,11 +92,11 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public String updateAmount(Member target, int acc) throws IOException {
 
-        return null; // 결과 문자열 반환
-        
-        //ex)
-        // 2000 -> 100000
-        // * 골드 * 등급으로 변경 되셨습니다
+      return null; // 결과 문자열 반환
+      
+      //ex)
+      // 2000 -> 100000
+      // * 골드 * 등급으로 변경 되셨습니다
     }
 
 
@@ -84,22 +104,27 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public String updateMember(Member target, String phone) throws IOException {
 
-        return null; // 결과 문자열 반환
-        
-        // ex)
-        // 홍길동님의 전화번호가 변경 되었습니다
-        // 01012341234 -> 01044445555
+      return null; // 결과 문자열 반환
+      
+      // ex)
+      // 홍길동님의 전화번호가 변경 되었습니다
+      // 01012341234 -> 01044445555
     }
 
 
     // 회원 탈퇴
     @Override
     public String deleteMember(Member target) throws IOException {
-
-
-        return null; // 결과 문자열 반환
-        // ex)
-        // "홍길동 회원이 탈퇴 처리 되었습니다"
+    	
+    	List<Member> searchMember = new ArrayList<Member>();
+    	
+    	for(Member member : searchMember) {
+    		
+    	}
+    	
+      return null; // 결과 문자열 반환
+      // ex)
+      // "홍길동 회원이 탈퇴 처리 되었습니다"
     }
 
 }

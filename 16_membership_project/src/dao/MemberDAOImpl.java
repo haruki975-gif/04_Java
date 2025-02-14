@@ -86,7 +86,17 @@ public class MemberDAOImpl implements MemberDAO{
     @Override
     public void saveFile() throws IOException {
     	//  memberList를 MemberList.bin 파일로 출력
-    	//  objectoutputstream 이용
+    	try {
+        // ObjectOutputStream을 이용해 파일 저장
+    		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME));
+
+        // memberList를 파일에 저장 (객체 직렬화)
+        oos.writeObject(memberList);
+        
+	    } catch(IOException e) {
+	    	throw e;
+	    
+	    }
     }
 
 

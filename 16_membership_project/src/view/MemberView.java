@@ -119,7 +119,7 @@ public class MemberView {
     
     boolean add = service.addMember(name, phone);
     
-    if(add) System.out.println("*** 회원이 추가되었습니다 ***");
+    if(add) System.out.println("*** 회원이 추가되었습니다 ***"); 
     System.out.println(); // 줄바꿈
 
 	}
@@ -146,7 +146,11 @@ public class MemberView {
 		
 		System.out.print("검색할 이름 입력 : ");
 		String name = sc.nextLine(); // 이름
-
+		
+		List<Member> searchName = service.selectName(name);
+		
+		if(searchName == null) System.out.println("### 검색 결과가 없습니다 ###");
+		System.out.println(); // 줄바꿈
 	}
 
 	// ------------------------------------------------------------
@@ -155,7 +159,7 @@ public class MemberView {
 		System.out.println("\n----- 특정 회원 사용 금액 누적하기 -----\n");
 		
 		System.out.print("회원 이름 입력 : ");
-		String name = sc.nextLine(); // 이름
+		String target = sc.nextLine(); // 이름
 	}
 	
 
@@ -165,7 +169,7 @@ public class MemberView {
 		System.out.println("\n----- 회원 정보 수정 -----\n");
 		
 		System.out.print("회원 이름 입력 : ");
-		String name = sc.nextLine(); // 이름
+		String target = sc.nextLine(); // 이름
 
 	}
 
@@ -176,7 +180,10 @@ public class MemberView {
 		System.out.println("\n----- 회원 탈퇴 -----\n");
 		
 		System.out.print("회원 이름 입력 : ");
-		String name = sc.nextLine(); // 이름
+		String target = sc.nextLine(); // 이름
+		
+		String searchName = service.deleteMember(new Member());
+		
 		
 	}
 }
