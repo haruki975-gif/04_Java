@@ -104,18 +104,22 @@ public class MemberServiceImpl implements MemberService{
     	int oldGrade = target.getGrade(); // 업데이트 전
     	int newGrade; // 업데이트 후
     	
-    	// 금액 범위에 따른 등급 변경
-    	if(target.getAmount() >= 0 && target.getAmount() < 100_000) {
-    		newGrade = Member.COMMON;
-    		
-    	} else if(target.getAmount() < 1_000_000) {
-    		newGrade = Member.GOLD;
-    		
-    	} else {
-    		newGrade = Member.DIAMOND;
-    	}
+    	// 금액 범위에 따른 현재 등급 변경
+//    	if(newAcc >= 0 && newAcc < 100_000) {
+//    		newGrade = Member.COMMON;
+//    		
+//    	} else if(newAcc < 1_000_000) {
+//    		newGrade = Member.GOLD;
+//    		
+//    	} else {
+//    		newGrade = Member.DIAMOND;
+//    	}
     	
-    	target.setGrade(newGrade); // 등급(숫자) 덮어쓰기
+    	// -> 위 IF문을 삼항연산자로 수정
+    	newGrade = (newAcc < 100_100) ? Member.COMMON : (newAcc < 1_000_000) ? Member.GOLD : Member.DIAMOND;
+    	
+    	// 등급(숫자) 덮어쓰기
+    	target.setGrade(newGrade);
     	
     	dao.saveFile(); // 파일 업데이트
     	

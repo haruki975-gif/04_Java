@@ -134,23 +134,16 @@ public class MemberView {
 		List<Member> memberLsit =	service.getMemberList();
 		
 		// 출력 부분
-		System.out.print("------------------------------------------\n");
-		System.out.println("[이름] [휴대폰 번호]   [누적금액] [등급]");
-		System.out.print("------------------------------------------\n");
+		System.out.print("--------------------------------------------\n");
+		System.out.println("[이름] [휴대폰 번호]  [누적금액]   [등급]");
+		System.out.print("--------------------------------------------\n");
 		memberLsit.stream().forEach(member->{
 			
 			String gradeText; // 등급 > 글자
+			gradeText = (member.getGrade() == 0) ? "일반" : (member.getGrade() == 1) ? "골드" : "다이아";
 			
-			if(member.getGrade() == 0) {
-				gradeText = "일반";
-			} else if(member.getGrade() == 1){
-				gradeText = "골드";
-			} else {
-				gradeText = "다이아";
-			}
-			
-			System.out.printf("%-7s %-13s %-13d %s\n", //공간 확보하고 정렬 : %숫자(+,-)타입
-										member.getName(), member.getPhone(), member.getAmount(), gradeText);
+			// 공간 확보하고 정렬 : %숫자(+,-)타입
+			System.out.printf("%-7s %-13s %-13d %s\n", member.getName(), member.getPhone(), member.getAmount(), gradeText);
 		});
 
 	}
